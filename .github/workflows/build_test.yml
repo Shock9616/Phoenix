@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   build:
-    name: Build and Test
+    name: Build
     runs-on: macOS-15
     steps:
       - uses: actions/checkout@v4
@@ -21,4 +21,8 @@ jobs:
       - name: Show current version of Xcode
         run: xcodebuild -version
       - name: Run tests
-        run: ./run_tests.sh
+        run: xcodebuild test -project "Phoenix/Phoenix.xcodeproj" -scheme Phoenix -sdk macosx15.0 -destination "platform=macOS,name=My Mac" -only-testing:PhoenixTests CODE_SIGNING_ALLOWED="NO"
+      - name: Archive build
+        if: success()
+        run: xcodebuild -project "Phoenix/Phoenix.xcodeproj" -scheme Phoenix archive -archivePath ${{ github.workspace }}/Phoenix.xcarchive -configuration release -sdk macos15.0
+
