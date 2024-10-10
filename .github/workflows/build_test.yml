@@ -2,9 +2,9 @@ name: Build
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ ci ]
   pull_request:
-    branches: [ main ]
+    branches: [ ci ]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
