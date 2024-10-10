@@ -25,7 +25,6 @@ jobs:
       - name: Archive build
         if: success()
         run: xcodebuild -project "Phoenix/Phoenix.xcodeproj" -scheme Phoenix archive -archivePath ${{ github.workspace }}/Phoenix.xcarchive -configuration release CODE_SIGNING_ALLOWED="NO"
-      - name: Compress archived app
       - name: Upload app
         if: success()
         uses: actions/upload-artifact@v3
